@@ -1,34 +1,5 @@
 // BitCorn BTC Real-Time Chart using Lightweight Charts + Binance
-const container = document.getElementById('chart');
-
-// Create chart with cream theme
-const chart = LightweightCharts.createChart(container, {
-  layout: { 
-    background: { type: 'solid', color: '#FAF1E6' }, 
-    textColor: '#3C2E20' 
-  },
-  rightPriceScale: { borderVisible: false },
-  timeScale: { 
-    timeVisible: true, 
-    secondsVisible: false, 
-    borderVisible: false 
-  },
-  grid: { 
-    vertLines: { color: '#eae4da' }, 
-    horzLines: { color: '#eae4da' } 
-  },
-});
-
-const series = chart.addCandlestickSeries({
-  upColor: '#00a652', 
-  downColor: '#d64b4b',
-  borderVisible: false, 
-  wickUpColor: '#00a652', 
-  wickDownColor: '#d64b4b',
-});
-
-const sel = document.getElementById('interval');
-let ws;
+let container, chart, series, sel, ws;
 
 // Binance API helpers
 function binanceKlineUrl(symbol, interval, limit = 500) {
@@ -140,4 +111,66 @@ sel.addEventListener('change', async () => {
 });
 
 // Start the application
-init();
+
+// Initialize the app when DOM is ready
+async function initApp() {
+  container = document.getElementById('chart');
+  sel = document.getElementById('interval');
+  
+  if (!container || !sel) {
+    console.error('Required DOM elements not found');
+    return;
+  }
+
+  // Create chart with cream theme
+  chart = LightweightCharts.createChart(container, {
+    layout: { 
+      background: { type: 'solid', color: '#FAF1E6' }, 
+      textColor: '#3C2E20' 
+    },
+    rightPriceScale: { borderVisible: false },
+    timeScale: { 
+      timeVisible: true, 
+      secondsVisible: false, 
+      borderVisible: false 
+    },
+    grid: { 
+      vertLines: { color: '#eae4da' }, 
+      horzLines: { color: '#eae4da' } 
+    },
+  });
+
+  series = chart.addCandlestickSeries({
+    upColor: '#00a652', 
+    downColor: '#d64b4b',
+    borderVisible: false, 
+    wickUpColor: '#00a652', 
+    wickDownColor: '#d64b4b',
+  });
+
+  // Handle chart resizing
+  function resize() {
+    const rect = container.getBoundingClientRect();
+    chart.applyOptions({ 
+      width: rect.width, 
+      height: rect.height 
+    });
+  }
+
+  window.addEventListener('resize', resize);
+  setTimeout(resize, 100);
+
+  // Handle interval changes
+  sel.addEventListener('change', async () => {
+    const newInterval = sel.value;
+    console.log('Switching to interval:', newInterval);
+    await seed(newInterval);
+    connectWS(newInterval);
+  });
+
+  // Start the application
+  await init();
+}
+
+// Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', initApp);
