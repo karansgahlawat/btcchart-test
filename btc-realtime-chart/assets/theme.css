@@ -1,0 +1,32 @@
+/* BitCorn cream theme */
+:root{
+  --cream:#FAF1E6;
+  --ink:#3C2E20;
+  --muted:#7C6E5B;
+  --accent:#00a652;
+  --danger:#d64b4b;
+  --line:#eae4da;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--cream);color:var(--ink);font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.6rem 1rem;border-bottom:1px solid var(--line);
+  background:linear-gradient(0deg, rgba(250,241,230,.85), rgba(250,241,230,.85));
+  backdrop-filter:saturate(1.2) blur(6px);
+}
+.brand{display:flex;gap:.5rem;align-items:center;font-weight:700}
+.brand .dot{width:.7rem;height:.7rem;border-radius:50%;background:var(--accent);display:inline-block}
+.controls{display:flex;gap:1rem;align-items:center;color:var(--muted)}
+.control select{margin-left:.35rem;padding:.25rem .4rem;border:1px solid var(--line);border-radius:.4rem;background:#fffaf3;color:var(--ink)}
+
+#app{height:calc(100vh - 94px);}
+#chart{height:100%;width:100%}
+
+.foot{height:40px;display:flex;gap:1rem;align-items:center;justify-content:center;border-top:1px solid var(--line);color:var(--muted)}
+@media (max-width:640px){
+  .controls{font-size:12px}
+  .pair{display:none}
+}
