@@ -16,7 +16,7 @@ app.use(express.static('.'));
 app.use('/api', createProxyMiddleware({
   target: 'https://api.binance.com',
   changeOrigin: true,
-  pathRewrite: (path) => path.replace(/^\/api/, ''),
+  pathRewrite: { '^/api': '' },
   onError: (err, req, res) => {
     console.error('Proxy error:', err);
     res.status(500).json({ error: 'Proxy error' });
@@ -28,7 +28,7 @@ app.use('/ws', createProxyMiddleware({
   target: 'wss://stream.binance.com:9443',
   ws: true,
   changeOrigin: true,
-  pathRewrite: (path) => path.replace(/^\/ws/, ''),
+  pathRewrite: { '^/ws': '' },
   onError: (err, req, res) => {
     console.error('WebSocket proxy error:', err);
   }
