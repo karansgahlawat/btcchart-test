@@ -1,0 +1,17 @@
+{
+  "name": "btc-realtime-chart",
+  "version": "1.0.0",
+  "description": "Bitcoin Real-time Chart",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve . -p 5173",
+    "build": "echo 'No build step required for static site' && exit 0",
+    "preview": "npx serve . -p 4173"
+  },
+  "keywords": ["bitcoin", "chart", "realtime"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
