@@ -84,35 +84,6 @@ function connectWS(interval) {
 }
 
 // Handle chart resizing
-function resize() {
-  const rect = container.getBoundingClientRect();
-  chart.applyOptions({ 
-    width: rect.width, 
-    height: rect.height 
-  });
-}
-
-window.addEventListener('resize', resize);
-setTimeout(resize, 100);
-
-// Initialize chart
-async function init() {
-  const currentInterval = sel.value;
-  await seed(currentInterval);
-  connectWS(currentInterval);
-}
-
-// Handle interval changes
-sel.addEventListener('change', async () => {
-  const newInterval = sel.value;
-  console.log('Switching to interval:', newInterval);
-  await seed(newInterval);
-  connectWS(newInterval);
-});
-
-// Start the application
-
-// Initialize the app when DOM is ready
 async function initApp() {
   container = document.getElementById('chart');
   sel = document.getElementById('interval');
@@ -169,7 +140,9 @@ async function initApp() {
   });
 
   // Start the application
-  await init();
+  const currentInterval = sel.value;
+  await seed(currentInterval);
+  connectWS(currentInterval);
 }
 
 // Wait for DOM to be ready
