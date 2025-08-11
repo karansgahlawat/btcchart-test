@@ -19,7 +19,7 @@ function mapKlines(rows) {
 // Load historical data
 async function seed(interval) {
   try {
-    const url = binanceKlineUrl('BTCUSDT', interval, 500);
+    ws = new WebSocket(`ws://localhost:5173/ws/ws/btcusdt@kline_${interval}`);
     const res = await fetch(url);
     const data = await res.json();
     

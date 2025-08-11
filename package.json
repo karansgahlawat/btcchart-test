@@ -4,7 +4,7 @@
   "description": "Bitcoin Real-time Chart",
   "main": "index.html",
   "scripts": {
-    "dev": "npx serve . -p 5173",
+    "dev": "node server.js",
     "build": "echo 'No build step required for static site' && exit 0",
     "preview": "npx serve . -p 4173"
   },
@@ -12,6 +12,9 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "serve": "^14.2.1"
+    "serve": "^14.2.1",
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
+    "cors": "^2.8.5"
   }
 }
